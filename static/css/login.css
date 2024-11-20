@@ -1,0 +1,89 @@
+body {
+    display: flex;
+    justify-content: center; 
+    min-height: 100vh;      
+    background-color: #f4f4f4; 
+}
+
+.login{
+    display: flex;
+    align-items: center;
+    gap: 150px;
+}
+
+.login_forms{
+    display: flex;
+    width: 498px;
+    height: 542px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 6px;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.14);
+}
+
+.forms_content{
+    display: flex;
+    width: 422px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 28px;
+    flex-shrink: 0;
+}
+
+.forms{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+}
+
+.input_box{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+}
+
+.input{
+    display: flex;
+    height: 60px;
+    padding: 0px 26px;
+    align-items: center;
+    gap: 10px;
+    border-radius: 6px;
+    border: 0.6px solid #313135;
+    background: #FCFCFC;
+    outline: none;
+    transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input:focus {
+    border: 0.6px solid #0D0D0E; /* Define uma cor para o foco */
+    box-shadow: 0 0 5px rgba(13, 13, 14, 0.3); /* Adiciona um efeito de sombra */
+}
+
+.button{
+    display: flex;
+    width: 423px;
+    height: 57px;
+    padding: 17px 188px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 6px;
+    background: #0D0D0E;
+    cursor: pointer;
+}
+
+.forms_content a{
+    color: #0D0D0E;
+    text-decoration: none;
+}
+
+.forms_content p{
+    color: #68686E;
+
+}
+
+

@@ -1,1 +1,33 @@
-!
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/login.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/global.css')}}">
+</head>
+<body>
+        <div class="login">
+            <div class="login_forms">
+                <div class="forms_content">
+                    <h2>Bem-vindo de volta!</h2>
+                    <form class="forms" action="{{ url_for('login') }}" method="post">
+                            <div class="input_box">
+                                <label for="login" class="form-label">Usuário</label>
+                                <input class="input" type="text" class="form-control" id="usuario" name="usuario" placeholder="username">
+                            </div>
+                            <div class="input_box">
+                                <label for="senha" class="form-label">Senha</label>
+                                <input class="input" type="password" class="form-control" id="senha" name="senha" placeholder="password">
+                            </div>
+                        <button class="button white" type="submit">Login</button>
+                    </form>
+                    <p>Não tem uma conta?  <a href="">Criar uma conta</a></p>
+                </div>
+            </div>
+            <img src="{{url_for('static', filename='imgs/login/bro.svg')}}" alt="">
+        </div>
+</body>
+</html>
