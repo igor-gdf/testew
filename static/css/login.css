@@ -87,3 +87,22 @@ body {
 }
 
 
+.password_container {
+    position: relative; /* Define o contêiner como relativo para o posicionamento absoluto do botão */
+    display: flex;
+    align-items: center;
+    width: 100%; /* Certifique-se de que ocupa a largura total desejada */
+}
+
+.password_container .toggle_password {
+    position: absolute; 
+    right: 12px; 
+    top: 70%; 
+    transform: translateY(-50%); 
+    border: none; 
+    background: none; 
+    cursor: pointer;
+}
+
+
+

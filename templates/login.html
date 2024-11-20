@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='css/login.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='css/global.css')}}">
+    <link rel="shortcut icon" href="{{url_for('static', filename='imgs/Logo.png')}}" type="image/x-icon">
+    <script src="{{ url_for('static', filename='js/script.js') }}" defer></script> <!-- Use 'defer' para garantir que o script seja carregado depois do DOM -->
 </head>
 <body>
         <div class="login">
@@ -16,11 +18,18 @@
                     <form class="forms" action="{{ url_for('login') }}" method="post">
                             <div class="input_box">
                                 <label for="login" class="form-label">Usuário</label>
-                                <input class="input" type="text" class="form-control" id="usuario" name="usuario" placeholder="username">
+                                <input class="input" type="text" id="usuario" name="usuario" placeholder="username">
                             </div>
-                            <div class="input_box">
-                                <label for="senha" class="form-label">Senha</label>
-                                <input class="input" type="password" class="form-control" id="senha" name="senha" placeholder="password">
+                            <div class="password_container">
+                                <div class="input_box">
+                                    <label for="login" class="form-label">Senha</label>
+                                    <input id="senha" type="password" class="input" placeholder="password">
+                                    <button type="button" class="toggle_password"
+                                            data-eye="{{ url_for('static', filename='imgs/login/eye.svg') }}"
+                                            data-eye-slash="{{ url_for('static', filename='imgs/login/eye-slash.svg') }}">
+                                        <img src="{{ url_for('static', filename='imgs/login/eye.svg') }}" alt="Mostrar senha" class="password_icon">
+                                    </button>
+                                </div>                              
                             </div>
                         <button class="button white" type="submit">Login</button>
                     </form>
