@@ -1,0 +1,250 @@
+/*HEADER*/
+
+header {
+    display: flex;
+    width: auto;
+    height: auto;
+    padding: 12px 124px;
+    justify-content: space-between;
+    align-items: center;
+    background: #09090A;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.login {
+    cursor: pointer;
+}
+
+ul {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+li a {
+    color: #FFF;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 125%;
+    text-decoration: none;
+}
+
+/*HEADER*/
+
+
+.contato {
+    display: flex;
+    padding: 12px 32px;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    border-radius: 4px;
+    border: 1px solid #FFF;
+    background: #09090A;
+    color: #FFF;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 125%;
+}
+
+.login {
+    display: flex;
+    padding: 12px 32px;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    border-radius: 4px;
+    background: #FFF;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 125%;
+}
+
+.hero {
+    display: flex;
+    width: auto;
+    padding: 149px 92px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+    background: linear-gradient(260deg, rgba(0, 0, 0, 0.3) 5.89%, rgba(0, 0, 0, 0.35) 17.18%), 
+                url('/static/imgs/hero_img.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+
+.hero_content{
+    display: flex;
+    width: 482px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.hero_content img{
+    width: 396px;
+}
+
+.hero h1 {
+    color: #FFF;
+    font-family: "Source Sans Pro";
+    font-size: 82.199px;
+    font-weight: 700;
+    line-height: 95%;
+    width: 396px;
+    height: 158.289px;
+    flex-shrink: 0;
+}
+
+.hero p {
+    color: #FFF;
+    font-size: 18px;
+    width: 562px;
+    height: 120px;
+
+}
+
+.hero_button {
+    display: flex;
+    padding: 12px 32px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 4px;
+    border: 1px solid #FFF;
+    color: #FFF;
+    background: none;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 125%;
+}
+
+/*INFORMATION - O que é?*/
+.information{
+    display: flex;
+    width: auto;
+    height: 730px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 92px;
+}
+
+.top_info{
+    display: flex;
+    width: 1074px;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    text-align: center;
+}
+
+.obj_rows{
+    display: flex;
+    height: 340px;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.obj_rows .row{
+    display: flex;
+    align-items: center;
+    gap: 118px;
+}
+
+.card_obj{
+    display: flex;
+    width: 512px;
+    align-items: center;
+    gap: 8px;
+}
+
+.card_obj .number{
+    display: flex;
+    width: 60px;
+    height: 60px;
+    padding: 30px;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    background: #DCDCDC;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+}
+
+.card_obj .obj_texts{
+    display: flex;
+    width: 100%;
+    gap: 12px;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+
+/*MOTIVATION - Principais motivações*/
+.motivation{
+    height: 1000px;
+    background: #09090A;
+    color: #FFF;
+}
+.motiv_column{
+    display: flex;
+    width: 850px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 40px;
+}
+
+.card_motiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 34px;
+}
+
+.card_motiv img{
+    width: 338px;
+    height: 188px;
+}
+
+.motiv_text{
+    width: 480px;
+}
+/*DEVELOPERS - Desenvolvedores*/
+.developers{
+    display: flex;
+    width: auto;
+    height: 818px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 42px;
+}
+
+.dev_title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #09090A;
+}
+
+.team{
+    display: flex;
+    width: 664px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+}
+
+.team_member{
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    align-self: stretch;
+}
