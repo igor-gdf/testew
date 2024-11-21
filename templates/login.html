@@ -33,10 +33,10 @@
                             </div>
                         <button class="button white" type="submit">Login</button>
                     </form>
-                    <p>Não tem uma conta?  <a href="">Criar uma conta</a></p>
+                    <p>Não tem uma conta?  <a href="{{ url_for('cadastro') }}">Criar uma conta</a></p>
                 </div>
             </div>
-            <img src="{{url_for('static', filename='imgs/login/bro.svg')}}" alt="">
+            <img src="{{url_for('static', filename='imgs/login/login.svg')}}" alt="">
         </div>
 </body>
 </html>

@@ -24,7 +24,7 @@ def index():
 
 @app.route('/cadastro')
 def cadastro():
-    return render_template('cadastro.html')
+    return render_template('register.html')
 
 @app.route('/login')
 def login():

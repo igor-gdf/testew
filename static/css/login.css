@@ -5,13 +5,13 @@ body {
     background-color: #f4f4f4; 
 }
 
-.login{
+.login, .register{
     display: flex;
     align-items: center;
     gap: 150px;
 }
 
-.login_forms{
+.login_forms, .register_forms{
     display: flex;
     width: 498px;
     height: 542px;
@@ -45,7 +45,7 @@ body {
     gap: 14px;
 }
 
-.input{
+.input, .dropdown_button{
     display: flex;
     height: 60px;
     padding: 0px 26px;
@@ -67,13 +67,14 @@ body {
     display: flex;
     width: 423px;
     height: 57px;
-    padding: 17px 188px;
     justify-content: center;
     align-items: center;
     gap: 10px;
     border-radius: 6px;
     background: #0D0D0E;
     cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
 }
 
 .forms_content a{
@@ -81,17 +82,16 @@ body {
     text-decoration: none;
 }
 
-.forms_content p{
+.forms_content p, span{
     color: #68686E;
-
 }
 
 
 .password_container {
-    position: relative; /* Define o contêiner como relativo para o posicionamento absoluto do botão */
+    position: relative; 
     display: flex;
     align-items: center;
-    width: 100%; /* Certifique-se de que ocupa a largura total desejada */
+    width: 100%; 
 }
 
 .password_container .toggle_password {
@@ -103,6 +103,4 @@ body {
     background: none; 
     cursor: pointer;
 }
-
-
 
