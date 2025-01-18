@@ -1,7 +1,25 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
+from utils import db
+import os
+from flask_migrate import Migrate
+from models.Usuario import Usuario
+from controllers.Usuario import bp_usuarios
 
 app = Flask(__name__)
-app.secret_key = 'sua_chave_secreta_aqui'
+app.register_blueprint(bp_usuarios, url_prefix='/usuarios')
+
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+db_host = os.getenv('DB_HOST')
+db_usuario = os.getenv('DB_USERNAME')
+db_senha = os.getenv('DB_PASSWORD')
+db_mydb = os.getenv('DB_DATABASE')
+
+conexao = f"mysql+pymysql://{db_usuario}:{db_senha}@{db_host}/{db_mydb}"
+app.config['SQLALCHEMY_DATABASE_URI'] = conexao
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db.init_app(app)
+migrate = Migrate(app, db)
 
 # Usuarios exemplo
 USERS = {
@@ -22,8 +40,34 @@ jogos_recentes = [
 def index():
     return render_template('index.html')
 
-@app.route('/cadastro')
+@app.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():
+    if request.method == 'POST':
+        nome = request.form['nome']
+        email = request.form['email']
+        senha = request.form['senha']
+        csenha = request.form['csenha']
+        funcao = request.form['funcao']  
+
+        if senha != csenha:
+            flash('As senhas não coincidem!', 'danger')
+            return redirect(url_for('cadastro'))  
+
+        if Usuario.query.filter_by(email=email).first():
+            flash('E-mail já cadastrado!', 'danger')
+            return redirect(url_for('cadastro'))  
+
+        novo_usuario = Usuario(nome=nome, email=email, senha=senha, funcao=funcao)
+
+        try:
+            db.session.add(novo_usuario)
+            db.session.commit()
+            flash('Cadastro realizado com sucesso!', 'success')
+            return redirect(url_for('login'))  
+        except Exception as e:
+            db.session.rollback()
+            flash(f'Erro ao cadastrar usuário: {e}', 'danger')
+
     return render_template('register.html')
 
 @app.route('/login')

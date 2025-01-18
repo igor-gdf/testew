@@ -1,0 +1,6 @@
+FLASK_APP=app:app
+SECRET_KEY=minha_palavra_secreta_qq_coisa
+DB_USERNAME=luiz_fernando
+DB_PASSWORD=luiz_fernando$pass
+DB_HOST=psi2024.mysql.database.azure.com
+DB_DATABASE=psi2024_luiz_fernando
