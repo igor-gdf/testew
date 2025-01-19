@@ -7,13 +7,13 @@ class Usuario(db.Model):
     nome = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
     senha = db.Column(db.String(100), nullable=False)
-    tipo = db.Column(db.String(50), nullable=False)  # Campo adicionado
+    funcao = db.Column(db.String(50), nullable=False)  
 
-    def __init__(self, nome, email, senha, tipo):
+    def __init__(self, nome, email, senha, funcao):
         self.nome = nome
         self.email = email
         self.senha = senha
-        self.tipo = tipo
+        self.funcao = funcao
     
     def __repr__(self):
-        return "<Usuario {} - Tipo: {}>".format(self.nome, self.tipo)
+        return "<Usuario {} - funcao: {}>".format(self.nome, self.funcao)
