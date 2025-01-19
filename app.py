@@ -46,12 +46,8 @@ def cadastro():
         nome = request.form['nome']
         email = request.form['email']
         senha = request.form['senha']
-        csenha = request.form['csenha']
         funcao = request.form['funcao']  
-
-        if senha != csenha:
-            flash('As senhas não coincidem!', 'danger')
-            return redirect(url_for('cadastro'))  
+  
 
         if Usuario.query.filter_by(email=email).first():
             flash('E-mail já cadastrado!', 'danger')

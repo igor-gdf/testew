@@ -14,60 +14,72 @@ def create():
         nome = request.form['nome']
         email = request.form['email']
         senha = request.form['senha']
-        csenha = request.form['csenha']
-        
-        usuario = Usuario(nome, email, senha)
+        tipo = request.form['tipo']  # Receber o tipo do dropdown menu
+
+        # Verificar se o email já existe
+        if Usuario.query.filter_by(email=email).first():
+            flash('E-mail já cadastrado!', 'danger')
+            return redirect(url_for('.create'))
+
+        # Criar um novo usuário com o tipo especificado
+        usuario = Usuario(nome=nome, email=email, senha=senha, tipo=tipo)
         db.session.add(usuario)
         db.session.commit()
-        flash('Dados inseridos com sucesso', 'success')
-        return redirect('usuarios.recovery')
+        flash('Usuário cadastrado com sucesso!', 'success')
+        return redirect(url_for('.recovery'))
+
 
 @bp_usuarios.route('/recovery', defaults={'id': 0})
 @bp_usuarios.route('/recovery/<int:id>')
 def recovery(id):
-    if (id==0):
+    if id == 0:
         usuarios = Usuario.query.all()
         return render_template('usuarios_recovery.html', usuarios=usuarios)
     else:
         usuario = Usuario.query.get(id)
+        if not usuario:
+            flash('Usuário não encontrado!', 'danger')
+            return redirect(url_for('.recovery'))
         return render_template('usuarios_detalhes.html', usuario=usuario)
+
 
 @bp_usuarios.route('/update/<int:id>', methods=['GET', 'POST'])
 def update(id):
-    if id and request.method=='GET':
-        usuario = Usuario.query.get(id)
-        return render_template('usuarios_update.html', usuario=usuario)
-
-    if request.method=='POST':
-        usuario = Usuario.query.get(id)
-        usuario.nome = request.form.get('nome')
-        usuario.email = request.form.get('email')
-	
-    if (request.form.get('senha') and request.form.get('senha') == request.form.get('csenha')):
-        usuario.senha = request.form.get('senha')
-    else:
-        flash('Senhas não conferem')
-        return redirect(url_for('.update', id=id))
-
-    db.session.add(usuario) 
-    db.session.commit()
-    flash('Dados atualizados com sucesso!')
-    return redirect(url_for('.recovery', id=id))
-
-@bp_usuarios.route('/delete/<int:id>', methods=['GET', 'POST'])
-def delete(id):
-    if id==0: 
-        flash('É preciso definir um usuário para ser excluído') 
+    usuario = Usuario.query.get(id)
+    if not usuario:
+        flash('Usuário não encontrado!', 'danger')
         return redirect(url_for('.recovery'))
 
     if request.method == 'GET':
-        usuario = Usuario.query.get(id)
-        return render_template('usuarios_delete.html', usuario = usuario)
+        return render_template('usuarios_update.html', usuario=usuario)
+
+    if request.method == 'POST':
+        usuario.nome = request.form.get('nome')
+        usuario.email = request.form.get('email')
+        usuario.tipo = request.form.get('tipo')  # Atualizar o tipo
+
+        # Atualizar a senha apenas se for fornecida
+        nova_senha = request.form.get('senha')
+        if nova_senha:
+            usuario.senha = nova_senha
+
+        db.session.commit()
+        flash('Dados atualizados com sucesso!', 'success')
+        return redirect(url_for('.recovery', id=id))
+
+
+@bp_usuarios.route('/delete/<int:id>', methods=['GET', 'POST'])
+def delete(id):
+    usuario = Usuario.query.get(id)
+    if not usuario:
+        flash('Usuário não encontrado!', 'danger')
+        return redirect(url_for('.recovery'))
+
+    if request.method == 'GET':
+        return render_template('usuarios_delete.html', usuario=usuario)
     
     if request.method == 'POST':
-        usuario = Usuario.query.get(id)
         db.session.delete(usuario)
         db.session.commit()
-        flash('Usuário excluído com sucesso')
+        flash('Usuário excluído com sucesso!', 'success')
         return redirect(url_for('.recovery'))
-    #return redirect(url_for('/usuarios/recovery'))
