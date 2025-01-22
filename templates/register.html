@@ -20,7 +20,7 @@
                 <div class="forms_title">
                     <h2>Criar uma conta</h2>
                 </div>
-                  <form class="forms" action="{{ url_for('cadastro') }}" method="post">
+                <form class="forms" action="{{ url_for('cadastro') }}" method="post">
                     <div class="input_box">
                         <label for="login" class="form-label">Nome</label>
                         <input class="input" type="text" id="usuario" name="nome" placeholder="username" required>
@@ -35,19 +35,13 @@
                     </div>
                     <div class="dropdown_container">
                         <div class="input_box">
-                            <label for="dropdown" class="form-label">Função</label>
+                            <label for="funcao" class="form-label">Função</label>
 
-                            <button type="button" id="dropdown_button" class="dropdown_button">
-                                <span id="dropdown_selected">Escolha a sua função</span>
-                                <img src="{{ url_for('static', filename='imgs/login/ep_arrow-up-bold.svg') }}"
-                                    alt="Abrir menu" id="dropdown_icon" class="dropdown_icon">
-                            </button>
-                            <ul id="dropdown_menu" class="dropdown_menu hidden">
-                                <li class="dropdown_item" data-value="Desenvolvedor">Desenvolvedor</li>
-                                <li class="dropdown_item" data-value="Jogador">Jogador</li>
-                            </ul>
-                            <input type="hidden" id="funcao" name="funcao" required>
-
+                            <select id="funcao" name="funcao" class="input dropdown_button" required>
+                                <option value="" disabled selected>Escolha a sua função</option>
+                                <option value="desenvolvedor">Desenvolvedor</option>
+                                <option value="jogador">Jogador</option>
+                            </select>
                         </div>
                     </div>
 
