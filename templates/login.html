@@ -18,12 +18,12 @@
                     <form class="forms" action="{{ url_for('login') }}" method="post">
                             <div class="input_box">
                                 <label for="login" class="form-label">Usuário</label>
-                                <input class="input" type="text" id="usuario" name="usuario" placeholder="username">
+                                <input id="usuario" type="text" name="usuario" class="input" placeholder="Usuário" required autocomplete="username">
                             </div>
                             <div class="password_container">
                                 <div class="input_box">
                                     <label for="login" class="form-label">Senha</label>
-                                    <input id="senha" type="password" class="input" placeholder="password">
+                                    <input id="senha" type="password" name="senha" class="input" placeholder="Senha" required autocomplete="current-password">
                                     <button type="button" class="toggle_password"
                                             data-eye="{{ url_for('static', filename='imgs/login/eye.svg') }}"
                                             data-eye-slash="{{ url_for('static', filename='imgs/login/eye-slash.svg') }}">

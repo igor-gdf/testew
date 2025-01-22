@@ -14,14 +14,12 @@ def create():
         nome = request.form['nome']
         email = request.form['email']
         senha = request.form['senha']
-        tipo = request.form['tipo']  # Receber o tipo do dropdown menu
+        tipo = request.form['tipo']  
 
-        # Verificar se o email já existe
         if Usuario.query.filter_by(email=email).first():
             flash('E-mail já cadastrado!', 'danger')
             return redirect(url_for('.create'))
-
-        # Criar um novo usuário com o tipo especificado
+        
         usuario = Usuario(nome=nome, email=email, senha=senha, tipo=tipo)
         db.session.add(usuario)
         db.session.commit()
@@ -56,9 +54,8 @@ def update(id):
     if request.method == 'POST':
         usuario.nome = request.form.get('nome')
         usuario.email = request.form.get('email')
-        usuario.tipo = request.form.get('tipo')  # Atualizar o tipo
+        usuario.tipo = request.form.get('tipo')  
 
-        # Atualizar a senha apenas se for fornecida
         nova_senha = request.form.get('senha')
         if nova_senha:
             usuario.senha = nova_senha

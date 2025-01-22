@@ -11,7 +11,7 @@ body {
     gap: 150px;
 }
 
-.login_forms, .register_forms{
+.login_forms{
     display: flex;
     width: 498px;
     height: 542px;
@@ -19,6 +19,7 @@ body {
     align-items: center;
     gap: 10px;
     border-radius: 6px;
+    background: #FCFCFC;
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.14);
 }
 

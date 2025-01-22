@@ -6,27 +6,15 @@ from models.Usuario import Usuario
 from controllers.Usuario import bp_usuarios
 
 app = Flask(__name__)
-#app.register_blueprint(bp_usuarios, url_prefix='/usuarios')
+# app.register_blueprint(bp_usuarios, url_prefix='/usuarios')
 
+# Configurações do banco de dados
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///dados.db"
-
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
-#db_host = os.getenv('DB_HOST')
-#db_usuario = os.getenv('DB_USERNAME')
-#db_senha = os.getenv('DB_PASSWORD')
-#db_mydb = os.getenv('DB_DATABASE')
-
-#conexao = f"mysql+pymysql://{db_usuario}:{db_senha}@{db_host}/{db_mydb}"
-#app.config['SQLALCHEMY_DATABASE_URI'] = conexao
-#app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
 migrate = Migrate(app, db)
 
-# Usuarios exemplo
-USERS = {
-    'user@example.com': 'senha123'
-}
 
 jogos_mais_jogados = [
     {'nome': 'Jogo A', 'jogadores': 5000},
@@ -67,23 +55,34 @@ def cadastro():
 
     return render_template('register.html')
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
+    if request.method == 'POST':
+        usuario = request.form.get('usuario')
+        senha = request.form.get('senha')
+
+        if not usuario or not senha:
+            flash('Usuário e senha são obrigatórios!', 'danger')
+            return redirect(url_for('login'))
+
+        usuario_obj = Usuario.query.filter_by(nome=usuario, senha=senha).first()
+        if usuario_obj:
+            session['usuario'] = usuario_obj.nome
+            flash('Login realizado com sucesso!', 'success')
+            return redirect(url_for('dashboard'))  
+        else:
+            flash('Usuário ou senha incorretos.', 'danger')
+    
     return render_template('login.html')
 
-@app.route('/home', methods=['GET', 'POST'])
-def home():
-    if request.method == 'POST':
-        email = request.form['email']
-        senha = request.form['senha']
-        if USERS.get(email) == senha:
-            session['usuario'] = email
-            return redirect(url_for('home'))
-        else:
-            flash('E-mail ou senha incorretos. Tente novamente.')
-            return redirect(url_for('login'))
+
+@app.route('/dashboard')
+def dashboard():
+    if 'usuario' not in session:
+        flash('Você precisa estar logado para acessar esta página.', 'danger')
+        return redirect(url_for('login'))
     
-    return render_template('home.html', jogos_mais_jogados=jogos_mais_jogados, jogos_recentes=jogos_recentes)
+    return render_template('dashboard.html')
 
 @app.route('/beneficios')
 def beneficios():
@@ -96,6 +95,10 @@ def sobre():
 @app.route('/perfil', defaults={"nome": "usuario_demo"})
 @app.route('/perfil/<nome>')
 def perfil(nome):
+    if 'usuario' not in session:
+        flash('Por favor, faça login para acessar seu perfil.', 'danger')
+        return redirect(url_for('login'))
+
     return render_template('perfil.html', nome=nome)
 
 @app.route('/projetos')
@@ -105,7 +108,7 @@ def projetos():
 @app.route('/logout')
 def logout():
     session.pop('usuario', None)
-    flash('Você foi deslogado com sucesso.')
+    flash('Você foi deslogado com sucesso.', 'success')
     return redirect(url_for('login'))
 
 if __name__ == '__main__':
