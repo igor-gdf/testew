@@ -14,13 +14,13 @@ def create():
         nome = request.form['nome']
         email = request.form['email']
         senha = request.form['senha']
-        tipo = request.form['tipo']  
+        funcao = request.form['funcao']  
 
         if Usuario.query.filter_by(email=email).first():
             flash('E-mail já cadastrado!', 'danger')
             return redirect(url_for('.create'))
         
-        usuario = Usuario(nome=nome, email=email, senha=senha, tipo=tipo)
+        usuario = Usuario(nome=nome, email=email, senha=senha, funcao=funcao)
         db.session.add(usuario)
         db.session.commit()
         flash('Usuário cadastrado com sucesso!', 'success')
@@ -54,7 +54,7 @@ def update(id):
     if request.method == 'POST':
         usuario.nome = request.form.get('nome')
         usuario.email = request.form.get('email')
-        usuario.tipo = request.form.get('tipo')  
+        usuario.funcao = request.form.get('funcao')  
 
         nova_senha = request.form.get('senha')
         if nova_senha:
