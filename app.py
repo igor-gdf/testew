@@ -4,17 +4,20 @@ import os
 from flask_migrate import Migrate
 from models.Usuario import Usuario
 from controllers.Usuario import bp_usuarios
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 
 app = Flask(__name__)
-# app.register_blueprint(bp_usuarios, url_prefix='/usuarios')
 
-# Configurações do banco de dados
+
+
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///dados.db"
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 
 db.init_app(app)
 migrate = Migrate(app, db)
 
+login_manager = LoginManager()
+login_manager.init_app(app)
 
 jogos_mais_jogados = [
     {'nome': 'Jogo A', 'jogadores': 5000},
@@ -29,6 +32,15 @@ jogos_recentes = [
 @app.route('/')
 def index():
     return render_template('index.html')
+
+class User(UserMixin):
+    def __init__(self, id):
+        self.id = id
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User(user_id)
 
 @app.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():
@@ -107,6 +119,7 @@ def projetos():
 
 @app.route('/logout')
 def logout():
+    logout_user()
     session.pop('usuario', None)
     flash('Você foi deslogado com sucesso.', 'success')
     return redirect(url_for('login'))
