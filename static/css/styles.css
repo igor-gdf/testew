@@ -1,3 +1,5 @@
+/*LOGIN E CADASTRO*/
+
 body {
     display: flex;
     justify-content: center; 
@@ -60,8 +62,8 @@ body {
 }
 
 .input:focus {
-    border: 0.6px solid #0D0D0E; /* Define uma cor para o foco */
-    box-shadow: 0 0 5px rgba(13, 13, 14, 0.3); /* Adiciona um efeito de sombra */
+    border: 0.6px solid #0D0D0E; 
+    box-shadow: 0 0 5px rgba(13, 13, 14, 0.3); 
 }
 
 .button{
@@ -87,7 +89,6 @@ body {
     color: #68686E;
 }
 
-
 .password_container {
     position: relative; 
     display: flex;
@@ -105,3 +106,55 @@ body {
     cursor: pointer;
 }
 
+.dropdown_container {
+    position: relative;
+    width: 100%;
+}
+
+.dropdown_button {
+    width: 100%;
+    color: #757575;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.register_forms{
+    display: flex;
+    width: 484px;
+    height: 655px;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    border-radius: 6px;
+    background: #FCFCFC;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.register_forms .forms_content{
+    display: flex;
+    width: 424px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.flash-messages {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    text-align: center;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #f44336;
+    color: white;
+}
+
+.flash-danger {
+    background-color: #f44336;
+    color: white;
+}

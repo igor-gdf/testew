@@ -59,7 +59,6 @@ def cadastro():
         try:
             db.session.add(novo_usuario)
             db.session.commit()
-            flash('Cadastro realizado com sucesso!', 'success')
             return redirect(url_for('login'))
         except Exception as e:
             db.session.rollback()
