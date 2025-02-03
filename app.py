@@ -3,8 +3,13 @@ from utils import db
 import os
 from flask_migrate import Migrate
 from models.Usuario import Usuario
+from models.Jogo import Jogo
+from models.Jogar import Jogar
+from models.Categoria import Categoria
 from controllers.Usuario import bp_usuarios
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+from werkzeug.security import generate_password_hash, check_password_hash
+
 
 app = Flask(__name__)
 
@@ -78,14 +83,16 @@ def login():
             flash('Usuário e senha são obrigatórios!', 'danger')
             return redirect(url_for('login'))
 
-        usuario_obj = Usuario.query.filter_by(nome=usuario, senha=senha).first()
-        if usuario_obj:
+        usuario_obj = Usuario.query.filter_by(nome=usuario).first()
+        
+        if usuario_obj and usuario_obj.verificar_senha(senha):
             session['usuario'] = usuario_obj.nome
-            
-            return redirect(url_for('dashboard'))  
+            session['email'] = usuario_obj.email
+            return redirect(url_for('dashboard'))
         else:
             flash('Usuário ou senha incorretos.', 'danger')
-    
+            return redirect(url_for('login'))
+
     return render_template('login.html')
 
 
