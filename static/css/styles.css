@@ -172,3 +172,119 @@ body {
 .dashboardh1{
     color: black;
 }
+
+/* Dashboard */
+.sidebar {
+    width: 266px;
+    height: 100vh;
+    background: #0f0f0f;
+    color: white;
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.sidebar-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.top-sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 30px;
+    flex-grow: 1;
+}
+
+/* Perfil do usuário */
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.avatar {
+    width: 60px;
+    height: 60px;
+    background: gray;
+    border-radius: 50%;
+    margin: 0 auto;
+}
+
+.username {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.email {
+    font-size: 12px;
+    color: #bbb;
+}
+
+/* Menu de navegação */
+.sidebar nav ul {
+    list-style: none;
+    display: inline;
+}
+
+.sidebar nav ul li {
+    margin: 15px 0;
+}
+
+
+.sidebar nav ul li a {
+    width: 218px;
+    height:36px;
+    text-decoration: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.sidebar nav ul li a i {
+    margin-right: 10px;
+    color: #a566ff;
+}
+
+.sidebar nav ul li a:hover,
+nav ul .active a {
+    background: #222;
+}
+
+/* Botão de Logout */
+.logout a {
+    text-decoration: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.logout a i {
+    margin-right: 10px;
+    color: #a566ff;
+}
+
+.logout a:hover {
+    background: #222;
+}
+
+/* Conteúdo principal */
+.content {
+    margin-left: 250px; /* Para evitar que o conteúdo fique atrás da sidebar */
+    padding: 20px;
+    height: 200vh; /* Apenas para simular o scroll */
+}
