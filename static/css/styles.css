@@ -150,11 +150,25 @@ body {
     padding: 15px;
     font-size: 16px;
     font-weight: bold;
-    background-color: #f44336;
     color: white;
 }
 
+.flash-success {
+    background-color: #d4edda; /* Verde claro */
+    color: #155724; /* Verde escuro */
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
 .flash-danger {
-    background-color: #f44336;
-    color: white;
+    background-color: #f8d7da; /* Vermelho claro */
+    color: #721c24; /* Vermelho escuro */
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.dashboardh1{
+    color: black;
 }

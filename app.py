@@ -59,12 +59,14 @@ def cadastro():
         try:
             db.session.add(novo_usuario)
             db.session.commit()
+            flash('Usuário cadastrado com sucesso! Faça login para continuar.', 'success')
             return redirect(url_for('login'))
         except Exception as e:
             db.session.rollback()
             flash(f'Erro ao cadastrar usuário: {e}', 'danger')
 
     return render_template('register.html')
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -79,7 +81,7 @@ def login():
         usuario_obj = Usuario.query.filter_by(nome=usuario, senha=senha).first()
         if usuario_obj:
             session['usuario'] = usuario_obj.nome
-            flash('Login realizado com sucesso!', 'success')
+            
             return redirect(url_for('dashboard'))  
         else:
             flash('Usuário ou senha incorretos.', 'danger')
@@ -93,7 +95,10 @@ def dashboard():
         flash('Você precisa estar logado para acessar esta página.', 'danger')
         return redirect(url_for('login'))
     
+    
+    flash('Login realizado com sucesso!', 'success')
     return render_template('dashboard.html')
+
 
 @app.route('/beneficios')
 def beneficios():
