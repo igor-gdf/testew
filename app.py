@@ -88,6 +88,7 @@ def login():
         if usuario_obj and usuario_obj.verificar_senha(senha):
             session['usuario'] = usuario_obj.nome
             session['email'] = usuario_obj.email
+            session['funcao'] = usuario_obj.funcao
             return redirect(url_for('dashboard'))
         else:
             flash('Usuário ou senha incorretos.', 'danger')
