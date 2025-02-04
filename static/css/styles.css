@@ -169,14 +169,12 @@ body {
     margin-bottom: 10px;
 }
 
-.dashboardh1{
-    color: black;
-}
+
 
 /* Dashboard */
 .sidebar {
     width: 266px;
-    height: 100vh;
+    height: calc(100vh - 40px);
     background: #0f0f0f;
     color: white;
     position: fixed;
@@ -191,10 +189,12 @@ body {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     overflow-y: auto;
 }
 
 .top-sidebar {
+    height: 366px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -202,13 +202,11 @@ body {
     flex-grow: 1;
 }
 
-/* Perfil do usuário */
+
 .profile {
     display: flex;
     align-items: center;
     gap: 12px;
-    text-align: center;
-    margin-bottom: 20px;
 }
 
 .avatar {
@@ -229,7 +227,6 @@ body {
     color: #bbb;
 }
 
-/* Menu de navegação */
 .sidebar nav ul {
     list-style: none;
     display: inline;
@@ -238,7 +235,6 @@ body {
 .sidebar nav ul li {
     margin: 15px 0;
 }
-
 
 .sidebar nav ul li a {
     width: 218px;
@@ -282,9 +278,8 @@ nav ul .active a {
     background: #222;
 }
 
-/* Conteúdo principal */
 .content {
-    margin-left: 250px; /* Para evitar que o conteúdo fique atrás da sidebar */
+    margin-left: 250px; 
     padding: 20px;
-    height: 200vh; /* Apenas para simular o scroll */
+    height: 200vh; 
 }

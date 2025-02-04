@@ -37,12 +37,12 @@
                     <ul>
                         <li class="active">
                             <a href="#">
-                                <i class="fas fa-home"></i> Home
+                                <img src="{{ url_for('static', filename='imgs/homeicon.svg') }}" alt=""> Home
                             </a>
                         </li>
                         <li>
                             <a href="#">
-                                <i class="fas fa-gamepad"></i> Games
+                                <img src="{{ url_for('static', filename='imgs/gamepadicon.svg') }}"> Jogos
                             </a>
                         </li>
                         <li>
@@ -53,13 +53,13 @@
                     </ul>
                 </nav>
             </div>
+            <div class="logout">
+                <a href="{{ url_for('logout') }}">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </div>
         </div>
 
-        <div class="logout">
-            <a href="{{ url_for('logout') }}">
-                <i class="fas fa-sign-out-alt"></i> Logout
-            </a>
-        </div>
     </div>
 
     <div class="content">
