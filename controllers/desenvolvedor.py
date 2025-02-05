@@ -19,6 +19,10 @@ def developer_required(f):
 @dev_bp.route('/criar_jogos', methods=['GET', 'POST'])
 @developer_required
 def criar_jogos():
+    if 'usuario' not in session:
+        flash('Você precisa estar logado para acessar esta página.', 'danger')
+        return redirect(url_for('login'))
+    
     if request.method == 'POST':
         titulo = request.form.get('titulo')
         descricao = request.form.get('descricao')

@@ -26,6 +26,10 @@ def jogos_pendentes():
 def validar_jogos(jogo_id):
     jogo = Jogo.query.get_or_404(jogo_id)
     
+    if 'usuario' not in session:
+        flash('Você precisa estar logado para acessar esta página.', 'danger')
+        return redirect(url_for('login'))
+
     if request.method == 'POST':
         novo_status = request.form.get('status')
         if novo_status not in ["aprovado", "reprovado", "pendente"]:

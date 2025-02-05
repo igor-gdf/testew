@@ -34,8 +34,39 @@
                     </tr>
                 {% endif %}
             {% endfor %}
+
         </tbody>
     </table>
+    <h1>Jogos validados anteriormente</h1>
+            
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Nome do Jogo</th>
+                        <th>Descrição</th>
+                        <th>Status</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for jogo in jogos %}
+                    {% if jogo.status == "aprovado" %}
+                        <tr>
+                            <td>{{ jogo.titulo }}</td>
+                            <td>{{ jogo.descricao }}</td>
+                            <td>{{ jogo.status }}</td>
+                            <td>
+                                <a href="{{ url_for('admin.validar_jogos', jogo_id=jogo.id) }}">
+                                    Validar
+                                </a>
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+
+
 
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}

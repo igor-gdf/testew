@@ -241,6 +241,7 @@ body {
     height:36px;
     text-decoration: none;
     color: white;
+    gap: 10px;
     display: flex;
     align-items: center;
     padding: 10px;
