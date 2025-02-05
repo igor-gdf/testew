@@ -7,12 +7,16 @@ from models.Jogo import Jogo
 from models.Jogar import Jogar
 from models.Categoria import Categoria
 from controllers.Usuario import bp_usuarios
+from controllers.admin import admin_bp
+from controllers.desenvolvedor import dev_bp
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
 app = Flask(__name__)
 
+app.register_blueprint(admin_bp)
+app.register_blueprint(dev_bp)
 
 
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///dados.db"
@@ -89,6 +93,7 @@ def login():
             session['usuario'] = usuario_obj.nome
             session['email'] = usuario_obj.email
             session['funcao'] = usuario_obj.funcao
+            session['id_usuario'] = usuario_obj.id
             return redirect(url_for('dashboard'))
         else:
             flash('Usuário ou senha incorretos.', 'danger')

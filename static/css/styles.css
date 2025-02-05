@@ -154,16 +154,16 @@ body {
 }
 
 .flash-success {
-    background-color: #d4edda; /* Verde claro */
-    color: #155724; /* Verde escuro */
+    background-color: #d4edda; 
+    color: #155724; 
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 10px;
 }
 
 .flash-danger {
-    background-color: #f8d7da; /* Vermelho claro */
-    color: #721c24; /* Vermelho escuro */
+    background-color: #f8d7da; 
+    color: #721c24; 
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 10px;

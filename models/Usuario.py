@@ -11,7 +11,6 @@ class Usuario(db.Model):
     senha_hash = db.Column(db.String(200), nullable=False)
     funcao = db.Column(db.String(50), nullable=False)
     data_cadastro = db.Column(db.DateTime, default=db.func.current_timestamp())
-    id_criador = db.Column(db.Boolean, default=False)
     tempo_de_jogo = db.Column(db.Integer, default=0)
 
     jogos_jogados = db.relationship('Jogar', backref='usuario', lazy=True)

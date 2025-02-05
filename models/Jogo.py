@@ -9,7 +9,10 @@ class Jogo(db.Model):
     descricao = db.Column(db.Text, nullable=False)
     data_publicacao = db.Column(db.DateTime, default=db.func.current_timestamp())
     url_download = db.Column(db.String(255), nullable=False)
-    status = db.Column(db.String(50), nullable=False)
+    status = db.Column(db.String(50), default="pendente")
+    data_envio = db.Column(db.DateTime, default=db.func.current_timestamp())
+
+    id_desenvolvedor = db.Column(db.Integer, db.ForeignKey('usuario.id'), nullable=False)
     
     def __init__(self, id_criador, titulo, descricao, url_download, status):
         self.id_criador = id_criador
