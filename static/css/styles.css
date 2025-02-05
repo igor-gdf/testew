@@ -1,6 +1,6 @@
 /*LOGIN E CADASTRO*/
 
-body {
+.register_body, .login_body {
     display: flex;
     justify-content: center; 
     min-height: 100vh;      
@@ -280,7 +280,7 @@ nav ul .active a {
 }
 
 .content {
-    margin-left: 250px; 
+    margin-left: 550px; /*Só pra aparecer esse botão*/
     padding: 20px;
     height: 200vh; 
 }

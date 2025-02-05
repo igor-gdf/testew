@@ -12,7 +12,7 @@
     <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
 </head>
 
-<body>
+<body class="login_body">
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
         <div class="flash-messages">

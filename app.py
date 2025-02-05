@@ -94,6 +94,7 @@ def login():
             session['email'] = usuario_obj.email
             session['funcao'] = usuario_obj.funcao
             session['id_usuario'] = usuario_obj.id
+            session['login_success'] = True
             return redirect(url_for('dashboard'))
         else:
             flash('Usuário ou senha incorretos.', 'danger')
@@ -109,7 +110,8 @@ def dashboard():
         return redirect(url_for('login'))
     
     
-    flash('Login realizado com sucesso!', 'success')
+    if session.pop('login_success', False):  
+        flash('Login realizado com sucesso!', 'success')
     return render_template('dashboard.html')
 
 
