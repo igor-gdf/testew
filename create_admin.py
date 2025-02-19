@@ -1,4 +1,4 @@
-from app import app  # Certifique-se de que o caminho do import esteja correto
+from app import app  
 from models.Usuario import Usuario
 from utils import db
 

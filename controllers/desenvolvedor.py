@@ -1,4 +1,3 @@
-# controllers/developer_routes.py
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 from models.Jogo import Jogo
 from utils import db
