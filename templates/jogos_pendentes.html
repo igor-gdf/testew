@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogos Pendentes</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/styles.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/global.css')}}">
+    <link rel="shortcut icon" href="{{url_for('static', filename='imgs/Logo.png')}}" type="image/x-icon">
+</head>
+<body>
+    <h1>Jogos Pendentes</h1>
+
+    <p>Abaixo estão os jogos que precisam ser validados.</p>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nome do Jogo</th>
+                <th>Descrição</th>
+                <th>Status</th>
+                <th>Ação</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for jogo in jogos %}
+                {% if jogo.status == "pendente" %}
+                    <tr>
+                        <td>{{ jogo.titulo }}</td>
+                        <td>{{ jogo.descricao }}</td>
+                        <td>{{ jogo.status }}</td>
+                        <td>
+                            <a href="{{ url_for('admin.validar_jogos', jogo_id=jogo.id) }}">
+                                Validar
+                            </a>
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+
+        </tbody>
+    </table>
+    <h1>Jogos validados anteriormente</h1>
+            
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Nome do Jogo</th>
+                        <th>Descrição</th>
+                        <th>Status</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for jogo in jogos %}
+                    {% if jogo.status == "aprovado" %}
+                        <tr>
+                            <td>{{ jogo.titulo }}</td>
+                            <td>{{ jogo.descricao }}</td>
+                            <td>{{ jogo.status }}</td>
+                            <td>
+                                <a href="{{ url_for('admin.validar_jogos', jogo_id=jogo.id) }}">
+                                    Validar
+                                </a>
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+
+
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <ul>
+        {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
+
+</body>
+</html>

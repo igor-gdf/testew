@@ -1,0 +1,286 @@
+/*LOGIN E CADASTRO*/
+
+.register_body, .login_body {
+    display: flex;
+    justify-content: center; 
+    min-height: 100vh;      
+    background-color: #f4f4f4; 
+}
+
+.login, .register{
+    display: flex;
+    align-items: center;
+    gap: 150px;
+}
+
+.login_forms{
+    display: flex;
+    width: 498px;
+    height: 542px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 6px;
+    background: #FCFCFC;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.14);
+}
+
+.forms_content{
+    display: flex;
+    width: 422px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 28px;
+    flex-shrink: 0;
+}
+
+.forms{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+}
+
+.input_box{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+}
+
+.input, .dropdown_button{
+    display: flex;
+    height: 60px;
+    padding: 0px 26px;
+    align-items: center;
+    gap: 10px;
+    border-radius: 6px;
+    border: 0.6px solid #313135;
+    background: #FCFCFC;
+    outline: none;
+    transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input:focus {
+    border: 0.6px solid #0D0D0E; 
+    box-shadow: 0 0 5px rgba(13, 13, 14, 0.3); 
+}
+
+.button{
+    display: flex;
+    width: 423px;
+    height: 57px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 6px;
+    background: #0D0D0E;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.forms_content a{
+    color: #0D0D0E;
+    text-decoration: none;
+}
+
+.forms_content p, span{
+    color: #68686E;
+}
+
+.password_container {
+    position: relative; 
+    display: flex;
+    align-items: center;
+    width: 100%; 
+}
+
+.password_container .toggle_password {
+    position: absolute; 
+    right: 12px; 
+    top: 70%; 
+    transform: translateY(-50%); 
+    border: none; 
+    background: none; 
+    cursor: pointer;
+}
+
+.dropdown_container {
+    position: relative;
+    width: 100%;
+}
+
+.dropdown_button {
+    width: 100%;
+    color: #757575;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.register_forms{
+    display: flex;
+    width: 484px;
+    height: 655px;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    border-radius: 6px;
+    background: #FCFCFC;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.register_forms .forms_content{
+    display: flex;
+    width: 424px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.flash-messages {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    text-align: center;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+}
+
+.flash-success {
+    background-color: #d4edda; 
+    color: #155724; 
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.flash-danger {
+    background-color: #f8d7da; 
+    color: #721c24; 
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+
+
+/* Dashboard */
+.sidebar {
+    width: 266px;
+    height: calc(100vh - 40px);
+    background: #0f0f0f;
+    color: white;
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.sidebar-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow-y: auto;
+}
+
+.top-sidebar {
+    height: 366px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 30px;
+    flex-grow: 1;
+}
+
+
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.avatar {
+    width: 60px;
+    height: 60px;
+    background: gray;
+    border-radius: 50%;
+    margin: 0 auto;
+}
+
+.username {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.email {
+    font-size: 12px;
+    color: #bbb;
+}
+
+.sidebar nav ul {
+    list-style: none;
+    display: inline;
+}
+
+.sidebar nav ul li {
+    margin: 15px 0;
+}
+
+.sidebar nav ul li a {
+    width: 218px;
+    height:36px;
+    text-decoration: none;
+    color: white;
+    gap: 10px;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.sidebar nav ul li a i {
+    margin-right: 10px;
+    color: #a566ff;
+}
+
+.sidebar nav ul li a:hover,
+nav ul .active a {
+    background: #222;
+}
+
+/* Botão de Logout */
+.logout a {
+    text-decoration: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.logout a i {
+    margin-right: 10px;
+    color: #a566ff;
+}
+
+.logout a:hover {
+    background: #222;
+}
+
+.content {
+    margin-left: 550px; /*Só pra aparecer esse botão*/
+    padding: 20px;
+    height: 200vh; 
+}

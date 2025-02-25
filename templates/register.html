@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/styles.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/global.css')}}">
+    <link rel="shortcut icon" href="{{url_for('static', filename='imgs/Logo.png')}}" type="image/x-icon">
+    <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+</head>
+
+<body class="register_body">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                    <div class="flash-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+    
+    <div class="register">
+        <div class="register_forms">
+            <div class="forms_content">
+                <div class="forms_title">
+                    <h2>Criar uma conta</h2>
+                </div>
+                <form class="forms" action="{{ url_for('cadastro') }}" method="post">
+                    <div class="input_box">
+                        <label for="login" class="form-label">Nome</label>
+                        <input class="input" type="text" id="usuario" name="nome" placeholder="username" required>
+                    </div>
+                    <div class="input_box">
+                        <label for="email" class="form-label">E-mail</label>
+                        <input class="input" type="email" id="email" name="email" placeholder="email" required>
+                    </div>
+                    <div class="input_box">
+                        <label for="senha" class="form-label">Senha</label>
+                        <input class="input" type="password" id="senha" name="senha" placeholder="password" required>
+                    </div>
+                    <div class="dropdown_container">
+                        <div class="input_box">
+                            <label for="funcao" class="form-label">Função</label>
+                            <select id="funcao" name="funcao" class="input dropdown_button" required>
+                                <option value="" disabled selected>Escolha a sua função</option>
+                                <option value="desenvolvedor">Desenvolvedor</option>
+                                <option value="jogador">Jogador</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="button white" type="submit">Cadastrar</button>
+                </form>
+                <p>Já tem uma conta? <a href="{{ url_for('login') }}">Faça login</a></p>
+            </div>
+        </div>
+        <img src="{{url_for('static', filename='imgs/login/register.svg')}}" alt="">
+    </div>
+</body>
+
+</html>
