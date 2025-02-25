@@ -28,16 +28,6 @@ migrate = Migrate(app, db)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-jogos_mais_jogados = [
-    {'nome': 'Jogo A', 'jogadores': 5000},
-    {'nome': 'Jogo B', 'jogadores': 3500},
-]
-
-jogos_recentes = [
-    {'nome': 'Jogo X', 'data_adicao': '2024-08-10'},
-    {'nome': 'Jogo Y', 'data_adicao': '2024-08-15'},
-]
-
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -49,7 +39,7 @@ class User(UserMixin):
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User(user_id)
+    return Usuario.query.get(int(user_id))
 
 @app.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():
@@ -83,18 +73,11 @@ def login():
         usuario = request.form.get('usuario')
         senha = request.form.get('senha')
 
-        if not usuario or not senha:
-            flash('Usuário e senha são obrigatórios!', 'danger')
-            return redirect(url_for('login'))
-
         usuario_obj = Usuario.query.filter_by(nome=usuario).first()
         
         if usuario_obj and usuario_obj.verificar_senha(senha):
-            session['usuario'] = usuario_obj.nome
-            session['email'] = usuario_obj.email
-            session['funcao'] = usuario_obj.funcao
-            session['id_usuario'] = usuario_obj.id
-            session['login_success'] = True
+            login_user(usuario_obj)  # Flask-Login gerencia a sessão
+            flash('Login realizado com sucesso!', 'success')
             return redirect(url_for('dashboard'))
         else:
             flash('Usuário ou senha incorretos.', 'danger')
@@ -102,17 +85,23 @@ def login():
 
     return render_template('login.html')
 
+from flask_login import login_required
 
 @app.route('/dashboard')
+@login_required
 def dashboard():
-    if 'usuario' not in session:
-        flash('Você precisa estar logado para acessar esta página.', 'danger')
-        return redirect(url_for('login'))
-    
-    
-    if session.pop('login_success', False):  
-        flash('Login realizado com sucesso!', 'success')
-    return render_template('dashboard.html')
+    jogos_mais_jogados = [
+        {'nome': 'Jogo A', 'jogadores': 5000},
+        {'nome': 'Jogo B', 'jogadores': 3500},
+    ]
+
+    jogos_recentes = [
+        {'nome': 'Jogo X', 'data_adicao': '2024-08-10'},
+        {'nome': 'Jogo Y', 'data_adicao': '2024-08-15'},
+    ]
+
+    return render_template('dashboard.html', jogos_mais_jogados=jogos_mais_jogados, jogos_recentes=jogos_recentes)
+
 
 
 @app.route('/beneficios')
@@ -125,11 +114,8 @@ def sobre():
 
 @app.route('/perfil', defaults={"nome": "usuario_demo"})
 @app.route('/perfil/<nome>')
+@login_required
 def perfil(nome):
-    if 'usuario' not in session:
-        flash('Por favor, faça login para acessar seu perfil.', 'danger')
-        return redirect(url_for('login'))
-
     return render_template('perfil.html', nome=nome)
 
 @app.route('/projetos')
@@ -137,11 +123,12 @@ def projetos():
     return render_template('projetos.html')
 
 @app.route('/logout')
+@login_required
 def logout():
     logout_user()
-    session.pop('usuario', None)
     flash('Você foi deslogado com sucesso.', 'success')
     return redirect(url_for('login'))
+
 
 if __name__ == '__main__':
     with app.app_context():

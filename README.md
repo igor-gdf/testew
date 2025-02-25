@@ -1,4 +1,4 @@
 Python -m venv venv
 . venv/bin/activate
-pip install -r requirements.text
-flask run –debug
+pip install -r requirements.txt
+flask run –-debug

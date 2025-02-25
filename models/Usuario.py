@@ -1,8 +1,8 @@
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin
 from utils import db
 
-
-class Usuario(db.Model):
+class Usuario(db.Model, UserMixin):
     __tablename__ = 'usuario'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -27,4 +27,3 @@ class Usuario(db.Model):
 
     def __repr__(self):
         return f"<Usuario {self.nome} - funcao: {self.funcao}>"
-

@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash,
 from models.Jogo import Jogo
 from utils import db
 from functools import wraps
+from flask_login import login_required
 
 dev_bp = Blueprint('dev', __name__, url_prefix='/dashboard')
 
@@ -16,6 +17,7 @@ def developer_required(f):
     return decorated_function
 
 @dev_bp.route('/criar_jogos', methods=['GET', 'POST'])
+@login_required
 @developer_required
 def criar_jogos():
     if 'usuario' not in session:
