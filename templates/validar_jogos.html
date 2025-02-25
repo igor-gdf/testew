@@ -1,32 +1,34 @@
 {% extends 'layouts/cabeçalho.html' %}
 
 {% block content %}
-    <!-- Incluir Sidebar -->
-    {% include 'layouts/sidebar.html' %}
-    <h1>Validação do Jogo</h1>
-    <p><strong>Nome do Jogo:</strong> {{ jogo.titulo }}</p>
-    <p><strong>Descrição:</strong> {{ jogo.descricao }}</p>
-    <p><strong>Status Atual:</strong> {{ jogo.status }}</p>
+<div class="content">
+   <!-- Incluir Sidebar -->
+   {% include 'layouts/sidebar.html' %}
+   <h1>Validação do Jogo</h1>
+   <p><strong>Nome do Jogo:</strong> {{ jogo.titulo }}</p>
+   <p><strong>Descrição:</strong> {{ jogo.descricao }}</p>
+   <p><strong>Status Atual:</strong> {{ jogo.status }}</p>
 
-    <form method="POST">
-        <label for="status">Escolha o novo status:</label>
-        <select name="status" id="status" required>
-            <option value="aprovado" {% if jogo.status=="aprovado" %}selected{% endif %}>Aprovado</option>
-            <option value="reprovado" {% if jogo.status=="reprovado" %}selected{% endif %}>Reprovado</option>
-            <option value="pendente" {% if jogo.status=="pendente" %}selected{% endif %}>Pendente</option>
-        </select>
+   <form method="POST">
+       <label for="status">Escolha o novo status:</label>
+       <select name="status" id="status" required>
+           <option value="aprovado" {% if jogo.status=="aprovado" %}selected{% endif %}>Aprovado</option>
+           <option value="reprovado" {% if jogo.status=="reprovado" %}selected{% endif %}>Reprovado</option>
+           <option value="pendente" {% if jogo.status=="pendente" %}selected{% endif %}>Pendente</option>
+       </select>
 
-        <button type="submit">Atualizar Status</button>
-    </form>
+       <button type="submit">Atualizar Status</button>
+   </form>
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-    <ul>
-        {% for category, message in messages %}
-        <li class="{{ category }}">{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-    {% endwith %}
+   {% with messages = get_flashed_messages(with_categories=true) %}
+   {% if messages %}
+   <ul>
+       {% for category, message in messages %}
+       <li class="{{ category }}">{{ message }}</li>
+       {% endfor %}
+   </ul>
+   {% endif %}
+   {% endwith %}
 
+</div>
 {% endblock %}
