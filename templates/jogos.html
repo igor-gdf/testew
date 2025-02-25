@@ -1,0 +1,22 @@
+{% extends 'layouts/cabeçalho.html' %}
+
+{% block content %}
+<div class="content">
+    <!-- Incluir Sidebar -->
+    {% include 'layouts/sidebar.html' %}
+
+    <div class="jogos-lista">
+        <h2>Jogos Validados</h2>
+        <ul>
+            {% for jogo in jogos %}
+            <li>
+                <p><strong>{{ jogo.titulo }}</strong> - {{ jogo.descricao }}</p>
+                <a href="{{ url_for('jogo_detalhes', jogo_id=jogo.id) }}">Ver detalhes</a>
+            </li>
+            {% else %}
+            <p>Nenhum jogo validado encontrado.</p>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

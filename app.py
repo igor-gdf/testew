@@ -140,6 +140,21 @@ def logout():
     flash('Você foi deslogado com sucesso.', 'success')
     return redirect(url_for('login'))
 
+# Rota de jogo
+@app.route('/jogos')
+@login_required
+def jogos():
+    # Buscando todos os jogos com status 'validado'
+    jogos_validos = Jogo.query.filter_by(status="validado").all()
+    return render_template('jogos.html', jogos=jogos_validos)
+
+@app.route('/jogo/<int:jogo_id>')
+@login_required
+def jogo_detalhes(jogo_id):
+    jogo = Jogo.query.get_or_404(jogo_id)
+    return render_template('jogo_detalhes.html', jogo=jogo)
+
+
 # Rodando a aplicação
 if __name__ == '__main__':
     with app.app_context():
