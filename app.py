@@ -78,7 +78,6 @@ def cadastro():
 
     return render_template('register.html')
 
-# Rota de login
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -88,7 +87,7 @@ def login():
         # Verificando o usuário e senha
         usuario_obj = Usuario.query.filter_by(nome=usuario).first()
         
-        if usuario_obj and check_password_hash(usuario_obj.senha, senha):
+        if usuario_obj and usuario_obj.verificar_senha(senha):  # A senha será verificada com senha_hash
             login_user(usuario_obj)  # Flask-Login gerencia a sessão
             flash('Login realizado com sucesso!', 'success')
             return redirect(url_for('dashboard'))
