@@ -11,36 +11,45 @@ from controllers.admin import admin_bp
 from controllers.desenvolvedor import dev_bp
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
+from datetime import timedelta
 
-
+# Inicializando a aplicação Flask
 app = Flask(__name__)
 
+# Registrando blueprints
 app.register_blueprint(admin_bp)
 app.register_blueprint(dev_bp)
 
-
+# Configurações do banco de dados e chave secreta
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///dados.db"
-app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'uma_chave_secreta_unica_e_complexa')  # Defina uma chave secreta para a sessão
+app.config['DEBUG'] = False  # Desabilita o modo debug em produção
+app.permanent_session_lifetime = timedelta(minutes=30)  # Define o tempo de expiração da sessão
 
+# Inicializando banco de dados e migrações
 db.init_app(app)
 migrate = Migrate(app, db)
 
+# Inicializando o login_manager do Flask-Login
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-class User(UserMixin):
-    def __init__(self, id):
-        self.id = id
-
-
+# Função de carregamento de usuário
 @login_manager.user_loader
 def load_user(user_id):
     return Usuario.query.get(int(user_id))
 
+# Página inicial
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+# Definindo o modelo User para o Flask-Login
+class User(UserMixin):
+    def __init__(self, id):
+        self.id = id
+
+# Rota de cadastro de usuário
 @app.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():
     if request.method == 'POST':
@@ -49,11 +58,14 @@ def cadastro():
         senha = request.form['senha']
         funcao = request.form['funcao']
 
+        # Verificando se o email já está cadastrado
         if Usuario.query.filter_by(email=email).first():
             flash('E-mail já cadastrado!', 'danger')
             return redirect(url_for('cadastro'))
 
-        novo_usuario = Usuario(nome=nome, email=email, senha=senha, funcao=funcao)
+        # Criptografando a senha antes de salvar
+        senha_hash = generate_password_hash(senha)
+        novo_usuario = Usuario(nome=nome, email=email, senha=senha_hash, funcao=funcao)
 
         try:
             db.session.add(novo_usuario)
@@ -66,16 +78,17 @@ def cadastro():
 
     return render_template('register.html')
 
-
+# Rota de login
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         usuario = request.form.get('usuario')
         senha = request.form.get('senha')
 
+        # Verificando o usuário e senha
         usuario_obj = Usuario.query.filter_by(nome=usuario).first()
         
-        if usuario_obj and usuario_obj.verificar_senha(senha):
+        if usuario_obj and check_password_hash(usuario_obj.senha, senha):
             login_user(usuario_obj)  # Flask-Login gerencia a sessão
             flash('Login realizado com sucesso!', 'success')
             return redirect(url_for('dashboard'))
@@ -85,8 +98,7 @@ def login():
 
     return render_template('login.html')
 
-from flask_login import login_required
-
+# Rota do dashboard (apenas para usuários logados)
 @app.route('/dashboard')
 @login_required
 def dashboard():
@@ -102,8 +114,7 @@ def dashboard():
 
     return render_template('dashboard.html', jogos_mais_jogados=jogos_mais_jogados, jogos_recentes=jogos_recentes)
 
-
-
+# Outras rotas
 @app.route('/beneficios')
 def beneficios():
     return render_template('beneficios.html')
@@ -122,6 +133,7 @@ def perfil(nome):
 def projetos():
     return render_template('projetos.html')
 
+# Rota de logout
 @app.route('/logout')
 @login_required
 def logout():
@@ -129,8 +141,8 @@ def logout():
     flash('Você foi deslogado com sucesso.', 'success')
     return redirect(url_for('login'))
 
-
+# Rodando a aplicação
 if __name__ == '__main__':
     with app.app_context():
-        db.create_all()
+        db.create_all()  # Cria as tabelas do banco de dados se não existirem
     app.run(debug=True)
