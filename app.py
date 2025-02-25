@@ -21,7 +21,7 @@ app.register_blueprint(admin_bp)
 app.register_blueprint(dev_bp)
 
 # Configurações do banco de dados e chave secreta
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///tmp/dados.db"
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///dados.db"
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'uma_chave_secreta_unica_e_complexa')  # Defina uma chave secreta para a sessão
 app.config['DEBUG'] = False  # Desabilita o modo debug em produção
 app.permanent_session_lifetime = timedelta(minutes=30)  # Define o tempo de expiração da sessão
