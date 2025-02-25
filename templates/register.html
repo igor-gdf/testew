@@ -1,18 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'layouts/cabeçalho.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro</title>
-    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
-    <link rel="stylesheet" href="{{url_for('static', filename='css/styles.css')}}">
-    <link rel="stylesheet" href="{{url_for('static', filename='css/global.css')}}">
-    <link rel="shortcut icon" href="{{url_for('static', filename='imgs/Logo.png')}}" type="image/x-icon">
-    <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
-</head>
-
-<body class="register_body">
+{% block content %}
+<div class="register_body">
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
             <div class="flash-messages">
@@ -59,6 +48,6 @@
         </div>
         <img src="{{url_for('static', filename='imgs/login/register.svg')}}" alt="">
     </div>
-</body>
+</div>
+{% endblock %}
 
-</html>

@@ -1,17 +1,6 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+{% extends 'layouts/cabeçalho.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jogos Pendentes</title>
-    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
-    <link rel="stylesheet" href="{{url_for('static', filename='css/styles.css')}}">
-    <link rel="stylesheet" href="{{url_for('static', filename='css/global.css')}}">
-    <link rel="shortcut icon" href="{{url_for('static', filename='imgs/Logo.png')}}" type="image/x-icon">
-</head>
-
-<body>
+{% block content %}
     <!-- Incluir Sidebar -->
     {% include 'layouts/sidebar.html' %}
     <h1>Jogos Pendentes</h1>
@@ -86,6 +75,4 @@
     {% endif %}
     {% endwith %}
 
-</body>
-
-</html>
+{% endblock %}

@@ -1,48 +1,40 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+{% extends 'layouts/cabeçalho.html' %}
 
-<head>
-  <meta charset="UTF-8">
-  <title>Criar Jogo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
+{% block content %}
+{% include 'layouts/sidebar.html' %}
+<h1>Enviar Jogo</h1>
 
-<body>
-  <!-- Incluir Sidebar -->
-  {% include 'layouts/sidebar.html' %}
-  <h1>Enviar Jogo</h1>
-
-  <form method="POST" action="{{ url_for('dev.criar_jogos') }}">
-    <div>
-      <label for="titulo">Título:</label>
-      <input type="text" id="titulo" name="titulo" required>
-    </div>
-    <br>
-    <div>
-      <label for="descricao">Descrição:</label>
-      <textarea id="descricao" name="descricao" rows="4" cols="50" required></textarea>
-    </div>
-    <br>
-    <div>
-      <label for="url_download">URL de Download:</label>
-      <input type="url" id="url_download" name="url_download" required>
-    </div>
-    <br>
-    <button type="submit">Enviar Jogo</button>
-  </form>
-
-  {% with messages = get_flashed_messages(with_categories=true) %}
-  {% if messages %}
-  <ul>
-    {% for category, message in messages %}
-    <li class="{{ category }}">{{ message }}</li>
-    {% endfor %}
-  </ul>
-  {% endif %}
-  {% endwith %}
-
+<form method="POST" action="{{ url_for('dev.criar_jogos') }}">
+  <div>
+    <label for="titulo">Título:</label>
+    <input type="text" id="titulo" name="titulo" required>
+  </div>
   <br>
-  <a href="{{ url_for('dashboard') }}">Voltar ao Dashboard</a>
-</body>
+  <div>
+    <label for="descricao">Descrição:</label>
+    <textarea id="descricao" name="descricao" rows="4" cols="50" required></textarea>
+  </div>
+  <br>
+  <div>
+    <label for="url_download">URL de Download:</label>
+    <input type="url" id="url_download" name="url_download" required>
+  </div>
+  <br>
+  <button type="submit">Enviar Jogo</button>
+</form>
 
-</html>
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+<ul>
+  {% for category, message in messages %}
+  <li class="{{ category }}">{{ message }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+
+<br>
+<a href="{{ url_for('dashboard') }}">Voltar ao Dashboard</a>
+{% endblock %}
+
+

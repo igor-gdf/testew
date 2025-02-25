@@ -1,59 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'layouts/cabeçalho.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <link rel="shortcut icon" href="{{url_for('static', filename='imgs/Logo.png')}}" type="image/x-icon">
-    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
-    <link rel="stylesheet" href="{{url_for('static', filename='css/styles.css')}}">
-    <link rel="stylesheet" href="{{url_for('static', filename='css/global.css')}}">
-    <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
-</head>
+{% block content %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+<div class="flash-messages">
+    {% for category, message in messages %}
+    <div class="flash flash-{{ category }}">{{ message }}</div>
+    {% endfor %}
+</div>
+{% endif %}
+{% endwith %}
 
-<body>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-    <div class="flash-messages">
-        {% for category, message in messages %}
-        <div class="flash flash-{{ category }}">{{ message }}</div>
-        {% endfor %}
-    </div>
+<!-- Incluir Sidebar -->
+{% include 'layouts/sidebar.html' %}
+
+<div class="content">
+    {% if current_user.funcao == 'desenvolvedor' %}
+    <p><a href="{{ url_for('dev.criar_jogos') }}">Enviar um novo jogo</a></p>
     {% endif %}
-    {% endwith %}
 
-    <!-- Incluir Sidebar -->
-    {% include 'layouts/sidebar.html' %}
+    {% if current_user.funcao == 'admin' %}
+    <p><a href="{{ url_for('admin.jogos_pendentes') }}">Validar jogo</a></p>
+    {% endif %}
 
-    <div class="content">
-        {% if current_user.funcao == 'desenvolvedor' %}
-        <p><a href="{{ url_for('dev.criar_jogos') }}">Enviar um novo jogo</a></p>
-        {% endif %}
+    <h2>Jogos Mais Jogados</h2>
+    <ul>
+        {% for jogo in jogos_mais_jogados %}
+        <li>
+            <p>{{ jogo.nome }} - {{ jogo.jogadores }} jogadores</p>
+        </li>
+        {% endfor %}
+    </ul>
 
-        {% if current_user.funcao == 'admin' %}
-        <p><a href="{{ url_for('admin.jogos_pendentes') }}">Validar jogo</a></p>
-        {% endif %}
-
-        <h2>Jogos Mais Jogados</h2>
-        <ul>
-            {% for jogo in jogos_mais_jogados %}
-            <li>
-                <p>{{ jogo.nome }} - {{ jogo.jogadores }} jogadores</p>
-            </li>
-            {% endfor %}
-        </ul>
-
-        <h2>Jogos Recentes</h2>
-        <ul>
-            {% for jogo in jogos_recentes %}
-            <li>
-                <p>{{ jogo.nome }} - Adicionado em {{ jogo.data_adicao }}</p>
-            </li>
-            {% endfor %}
-        </ul>
-    </div>
-
-</body>
-
-</html>
+    <h2>Jogos Recentes</h2>
+    <ul>
+        {% for jogo in jogos_recentes %}
+        <li>
+            <p>{{ jogo.nome }} - Adicionado em {{ jogo.data_adicao }}</p>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
