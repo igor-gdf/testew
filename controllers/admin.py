@@ -1,7 +1,8 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash, session
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 from models.Jogo import Jogo
 from utils import db
 from functools import wraps
+from flask_login import current_user, login_required
 
 admin_bp = Blueprint('admin', __name__, url_prefix='/admin')
 
@@ -9,7 +10,8 @@ def admin_required(f):
     from functools import wraps
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        if session.get('funcao') != 'admin':
+        # Usando current_user para verificar a função do usuário
+        if current_user.funcao != 'admin':
             flash('Acesso restrito: somente administradores podem acessar esta página.', 'danger')
             return redirect(url_for('dashboard'))
         return f(*args, **kwargs)
@@ -17,16 +19,18 @@ def admin_required(f):
 
 @admin_bp.route('/jogos_pendentes')
 @admin_required
+@login_required  # Garantindo que o usuário está logado antes de acessar a página
 def jogos_pendentes():
     jogos = Jogo.query.all()  
     return render_template('jogos_pendentes.html', jogos=jogos)
 
 @admin_bp.route('/validar_jogos/<int:jogo_id>', methods=['GET', 'POST'])
 @admin_required
+@login_required  # Garantindo que o usuário está logado antes de acessar a página
 def validar_jogos(jogo_id):
     jogo = Jogo.query.get_or_404(jogo_id)
     
-    if 'usuario' not in session:
+    if current_user is None:  # Verificando se o usuário está logado
         flash('Você precisa estar logado para acessar esta página.', 'danger')
         return redirect(url_for('login'))
 
