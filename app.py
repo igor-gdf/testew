@@ -144,8 +144,8 @@ def logout():
 @app.route('/jogos')
 @login_required
 def jogos():
-    # Buscando todos os jogos com status 'validado'
-    jogos_validos = Jogo.query.filter_by(status="validado").all()
+    # Buscando todos os jogos com status 'aprovado'
+    jogos_validos = Jogo.query.filter_by(status="aprovado").all()
     return render_template('jogos.html', jogos=jogos_validos)
 
 @app.route('/jogo/<int:jogo_id>')
